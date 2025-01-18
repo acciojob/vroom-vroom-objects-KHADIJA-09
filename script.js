@@ -1,32 +1,35 @@
-}
-// Car Class
-class Car {
-    constructor(make, model) {
-        this.make = make;
-        this.model = model;
-    }
-
-    getMakeModel() {
-        return `${this.make} ${this.model}`;
-    }
+// Car Constructor Function
+function Car(make, model) {
+    this.make = make;
+    this.model = model;
 }
 
-// SportsCar Class extending Car
-class SportsCar extends Car {
-    constructor(make, model, topSpeed) {
-        super(make, model);  // Call the parent class constructor
-        this.topSpeed = topSpeed;
-    }
+// Method added to Car prototype
+Car.prototype.getMakeModel = function() {
+    return `${this.make} ${this.model}`;
+};
 
-    getTopSpeed() {
-        return this.topSpeed;
-    }
+// SportsCar Constructor Function
+function SportsCar(make, model, topSpeed) {
+    // Inherit properties from Car
+    Car.call(this, make, model);
+    this.topSpeed = topSpeed;
 }
 
-// Testing
+// Inherit Car prototype methods
+SportsCar.prototype = Object.create(Car.prototype);
+SportsCar.prototype.constructor = SportsCar;
+
+// Add getTopSpeed method to SportsCar prototype
+SportsCar.prototype.getTopSpeed = function() {
+    return this.topSpeed;
+};
+
+// // Testing the implementation
 // const car = new SportsCar("Ferrari", "Testarossa", 200);
 // console.log(car.getMakeModel());  // Output: Ferrari Testarossa
 // console.log(car.getTopSpeed());   // Output: 200
+
 
 // Do not change the code below
 window.Car = Car;
